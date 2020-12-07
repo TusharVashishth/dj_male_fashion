@@ -1,0 +1,1 @@
+web: gunicorn Male_Fashion.wsgi

@@ -1,0 +1,73 @@
+{% extends 'layouts/master.html' %}
+{% load static %}
+{% block content %}
+    {#   For messages #}
+    {% include 'layouts/includes/message.html' with ml_auto='yes' %}
+
+
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Checkout</h4>
+                        <div class="breadcrumb__links">
+                            <a href="{% url 'home' %}">Home</a>
+                            <a href="{% url 'cart' %}">Cart</a>
+                            <span>Checkout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <h3>Address</h3>
+                        <a href="{% url 'update_user_address' %}" class="bg-light text-decoration-none text-dark">
+                            City : {{ address.city }} , Apartment : {{ address.apartment }}
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="{% url 'shop' %}">Continue Shopping</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+
+                            <li>Subtotal <span>₹{{ cartTotal }}</span></li>
+                            <li>Total <span>₹{{ cartTotal }}</span></li>
+                        </ul>
+                        <div id="paypal-button-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+{% endblock %}
+{% block extraJs %}
+    <script src="https://www.paypal.com/sdk/js?client-id=AS1TSnvUgWVgsNpCNSgppufsIRuD9FTi6FPgZZs8rYjidgQU-MLAFFj1PWaik63n1f4mUFApltk0_giA&currency=INR"></script>
+    <script>
+        var amount = {{ cartTotal }}
+        var checkoutCompleteUrl = "{% url 'checkoutComplete' %}"
+        var cartUrl = '{% url 'cart' %}'
+
+    </script>
+    <script src="{% static 'js/paypal.js' %}"></script>
+
+{% endblock %}
